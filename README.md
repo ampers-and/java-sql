@@ -200,6 +200,15 @@ Take the following data and normalize it into a 3NF database.  You can use the w
 > In the WHERE clause, you can provide another list with an IN keyword this list can be the result of another SELECT query. Write a query to return a list of CustomerIDs that meet the criteria above. Pass that to the IN keyword of the WHERE clause as the list of IDs to be deleted
  
 > Use a LEFT JOIN to join the Orders table onto the Customers table and check for a NULL value in the OrderID column
+```sql
+DELETE
+FROM	customers
+WHERE	customer_id in 
+	(	SELECT	c.customer_id
+		FROM	customers c LEFT JOIN orders o 
+		ON	o.customer_id = c.customer_id
+		WHERE	order_id is null)
+```
 
 ## Create Database and Table
 
